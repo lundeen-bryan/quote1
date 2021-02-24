@@ -112,3 +112,13 @@ button:active {
   }
 }
 /* MEDIA-QUERY.END */
+
+/* FOOTER.START */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(121, 121, 121, 0.4);
+}
+/* FOOTER.END */
