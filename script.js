@@ -5,15 +5,13 @@ const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 
-/* SHOW LOADING */
-function loading() {
+function showSpinner() {
   loader.hidden = false;
   quoteContainer.hidden = true;
 }
 
-// HIDE LOADING
-function complete() {
-  if (!loading.hidden) {
+function hideSpinner() {
+  if (!showSpinner.hidden) {
     quoteContainer.hidden = false;
     loader.hidden = true;
   }
@@ -22,33 +20,27 @@ function complete() {
 const url = 'https://api.quotable.io/random'; //using this API there is no need to find a proxyURL
 
 async function getQuote() {
-  //this function is called getQuote it fetches a quote & author from an API
-  loading();
-  fetch(url) //fetch the info from the url
+  showSpinner();
+  fetch(url)
     .then(function (data) {
-      //put data in this function
-      return data.json(); //pull the data as a json file
+      return data.json();
     })
     .then(function (data) {
-      /* get author from api */
       if (data.author === '') {
-        authorText.innerText = 'Unknown'; // if there is no author return 'unknown'
+        authorText.innerText = 'Unknown';
       } else {
-        authorText.innerText = data.author; //return the author's name
+        authorText.innerText = data.author;
       }
-      /* check for char count in quote (<120) & make it smaller font by changing the class */
       if (data.content > 120) {
-        quoteText.classList.add('long-quote'); //add the long-quote class
+        quoteText.classList.add('long-quote');
       } else {
-        quoteText.classList.remove('long-quote'); //remove the long-quote class
+        quoteText.classList.remove('long-quote');
       }
-      quoteText.innerText = data.content; //get the quote text from API
-      // stop loader, show quote
-      complete();
+      quoteText.innerText = data.content;
+      hideSpinner();
     })
     .catch(function (err) {
       getQuote();
-      //if error catch the error and run again
     });
 }
 
