@@ -3,11 +3,27 @@ const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
+const loader = document.getElementById('loader');
+
+/* SHOW LOADING */
+function loading() {
+  loader.hidden = false;
+  quoteContainer.hidden = true;
+}
+
+// HIDE LOADING
+function complete() {
+  if (!loading.hidden) {
+    quoteContainer.hidden = false;
+    loader.hidden = true;
+  }
+}
 
 const url = 'https://api.quotable.io/random'; //using this API there is no need to find a proxyURL
 
 async function getQuote() {
   //this function is called getQuote it fetches a quote & author from an API
+  loading();
   fetch(url) //fetch the info from the url
     .then(function (data) {
       //put data in this function
@@ -27,6 +43,8 @@ async function getQuote() {
         quoteText.classList.remove('long-quote'); //remove the long-quote class
       }
       quoteText.innerText = data.content; //get the quote text from API
+      // stop loader, show quote
+      complete();
     })
     .catch(function (err) {
       getQuote();
