@@ -8,7 +8,7 @@
 
 ## Link To Project
 
-See the [[Project name on Netlify]]([netlify-url]) on Netlify.
+See the [Quote Maker](https://lundeen-bryan-quote-maker.netlify.app/) on Netlify.
 
 ---
 
